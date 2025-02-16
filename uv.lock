@@ -1,0 +1,65 @@
+version = 1
+requires-python = ">=3.11"
+
+[[package]]
+name = "setuptools"
+version = "75.8.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/92/ec/089608b791d210aec4e7f97488e67ab0d33add3efccb83a056cbafe3a2a6/setuptools-75.8.0.tar.gz", hash = "sha256:c5afc8f407c626b8313a86e10311dd3f661c6cd9c09d4bf8c15c0e11f9f2b0e6", size = 1343222 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/69/8a/b9dc7678803429e4a3bc9ba462fa3dd9066824d3c607490235c6a796be5a/setuptools-75.8.0-py3-none-any.whl", hash = "sha256:e3982f444617239225d675215d51f6ba05f845d4eec313da4418fdbb56fb27e3", size = 1228782 },
+]
+
+[[package]]
+name = "socha"
+version = "3.6.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "xsdata" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/63/ae/91ec078f65b334ab613811977eac211a9cc7684f4a3b3663ac5353673a19/socha-3.6.2-cp311-cp311-macosx_10_12_x86_64.whl", hash = "sha256:b8c790ff7e0073fde2d1fb23aea94e56820da9dc4d6d59f55eef555724aeae9e", size = 370441 },
+    { url = "https://files.pythonhosted.org/packages/31/43/e8340d2ef44b85b03af712d5097aaeaaa97bb84536a0a077994986560327/socha-3.6.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:bcfd45035a46c0eff763f9704109b762a19eb7d1b9d23eb0aa8e2ac5ed41b244", size = 366912 },
+    { url = "https://files.pythonhosted.org/packages/93/c9/7e001057dcc98a144e8bc2c59152eddae5f9b013c9f5e56ee694a13c22c8/socha-3.6.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:9df99ad6f6e4651ce9642012a52b7a3ea517ac36f552102c60b3ecc21fb8d25f", size = 411203 },
+    { url = "https://files.pythonhosted.org/packages/09/12/22279984c3ed4e3225784aed09ef603f90ac128a8501f2eed1acf0fd2abd/socha-3.6.2-cp311-cp311-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:b06ce689257e4e0d2c73469551ba9cbaee1568b0320dfbcf1c9b870158228e60", size = 413733 },
+    { url = "https://files.pythonhosted.org/packages/a6/ae/30d6340f05082fbaff778dcda3270d866d39d2d3ffd8d81d4fa6ad1c680a/socha-3.6.2-cp311-cp311-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:0f2e96a19b625c0b631f92be675ec753797a30cd6deff93e8595685e14177898", size = 475281 },
+    { url = "https://files.pythonhosted.org/packages/f9/f6/9f1c035f662094ebfc62e329dc74df19b5140381219e31398ace58e4a9b6/socha-3.6.2-cp311-cp311-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:74a9e86836c83159a66146491e50ce6e75545a2be949a9423b560dedbbba0a6b", size = 492379 },
+    { url = "https://files.pythonhosted.org/packages/2b/1d/a110cda6ae86d3e9fc4a6a2d6712b52af11c9b87748ff3b6bbc4460c730e/socha-3.6.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:53ff4b4888a0266405207bd1e00eeda0f7a8f27139722545244389445d99a56a", size = 411513 },
+    { url = "https://files.pythonhosted.org/packages/3d/f5/22be5e2deb38113b6a965f8fba7cfa5762c221e1c4acccf272cee883a7db/socha-3.6.2-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:a9ed320092fb36f91b2d1b9467979bbd2ae9db0e67a4171c309af26e692e4c90", size = 431455 },
+    { url = "https://files.pythonhosted.org/packages/4e/ae/7e99e5d1e6ba0114df0723ce984272b4c58eeeb5ea7aec078006626ac3bf/socha-3.6.2-cp311-none-win32.whl", hash = "sha256:bf00013ec0821bae988beb10d5fdb782fd0591399f5df723a86535cbd3722c0e", size = 236784 },
+    { url = "https://files.pythonhosted.org/packages/10/a9/5c2283fbd52ce6d32900e4f73e7192959a79f7988a98b6768a7d0fac64e1/socha-3.6.2-cp311-none-win_amd64.whl", hash = "sha256:4d743a9983839e0d12287f5fe76550e9daeb58155afdd7d311140228d572398e", size = 252821 },
+    { url = "https://files.pythonhosted.org/packages/5e/fa/f9d77fe10d072732fe47f16e16414cdac8ec1a26cfc61d1a1117dfa4096f/socha-3.6.2-cp312-cp312-macosx_10_12_x86_64.whl", hash = "sha256:f7f599e5ce9c39532dc276ae21c9d9cbcba2cde36ae814a5648fd63fe01154c2", size = 370809 },
+    { url = "https://files.pythonhosted.org/packages/00/8f/e2a372dab2dbbcc457d53a2c9b28458f42277d2cb4561006d05d7b0c4db0/socha-3.6.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:2f161b4724ddfc89c0229e9ffc250905f89975ebe9586cb053db4a4a0bb112b1", size = 367293 },
+    { url = "https://files.pythonhosted.org/packages/7b/47/6fa3c2c1e44e0e3fb9b2690581c201cd1251b125643b74b6163f571c21c7/socha-3.6.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:678bc6f2ece31f80d4a5a14f5e67a88b65df5df75f7aa6c48a20a518725efe52", size = 411795 },
+    { url = "https://files.pythonhosted.org/packages/b5/3e/9c69acdd02c5f7d64cb0296e966c44951c06f48ad274baf8bd22a3789995/socha-3.6.2-cp312-cp312-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:bcbd09a2e50e2e3c0997ebc04dbed1026e2ef3ee688f54d5bfdbb6c1bdb8d8fe", size = 414808 },
+    { url = "https://files.pythonhosted.org/packages/f0/f0/f8179c6863b81717c1a56946215d60d6b0c9ffffd037872eff40662174af/socha-3.6.2-cp312-cp312-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:879d61345b69cc86b2854dec33ffa089c0f4bf7caf98b504d8c624294fb5235d", size = 474725 },
+    { url = "https://files.pythonhosted.org/packages/a0/54/46118adff79692716572d6386abc7de278547e21c693d447e0373609f092/socha-3.6.2-cp312-cp312-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:d60e0c73bb351553423459c7e95a93f9ba9c8517a8704e333128b76af7fe4728", size = 473602 },
+    { url = "https://files.pythonhosted.org/packages/4f/ae/7a64fb71e836ab0a7f7c5f6201de8a00b0ca67dedb930e8b737e60f22fef/socha-3.6.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f268df9736c0afa14f3f3b8c92184d01ae1e4763342c53090b615f0f9319931a", size = 412604 },
+    { url = "https://files.pythonhosted.org/packages/56/d8/2ec6acf6ce804d465c0c1cb724725da6c7425dfccdfb74d61b08c099fcde/socha-3.6.2-cp312-cp312-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:90e47074d531d55b2be5bcea6bb163a9b08332f4658d5c32e0bdaa375f582fe8", size = 434314 },
+    { url = "https://files.pythonhosted.org/packages/f1/c3/0038dec8f814d2cd02224673cfa8955a3374c06d9bc8df3cd949accd1919/socha-3.6.2-cp312-none-win32.whl", hash = "sha256:d34537cb76b2efedab4198401e51f01fde8a1f6862774c8580db4b62d842730b", size = 238642 },
+    { url = "https://files.pythonhosted.org/packages/27/cb/0c2d53008318a7efc8a4990e6eed2137d3033e7d001b93af1cc52be042ef/socha-3.6.2-cp312-none-win_amd64.whl", hash = "sha256:cf4c030e6544e2ae23a13714d13c4b1b13455d17b52f03a26981adc2c02190df", size = 255120 },
+]
+
+[[package]]
+name = "software-challenge"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "setuptools" },
+    { name = "socha" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "setuptools", specifier = ">=75.8.0" },
+    { name = "socha", specifier = ">=3.6.2" },
+]
+
+[[package]]
+name = "xsdata"
+version = "22.9"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/12/7b/ceb01e0eb4d9ce22cf95595c991471d0ab84b705d3728cbfa49a1fa6c258/xsdata-22.9.tar.gz", hash = "sha256:c62d5002b4de59baca4c4ea9edfdc08fb7759713ec21139aaeebff20cc3e7cfc", size = 290476 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/56/22/5de0d8584bdf89bcbeb7da5de9806d1c90dcfac7f203914c91778669165d/xsdata-22.9-py3-none-any.whl", hash = "sha256:090cc780861dbf2bb7ae7cdac08cddba1c8000fba08b9915fdb45be8f8807b78", size = 184612 },
+]

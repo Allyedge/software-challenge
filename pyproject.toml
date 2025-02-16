@@ -1,0 +1,17 @@
+[project]
+name = "software-challenge"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Allyedge", email = "alimarslank@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "setuptools>=75.8.0",
+    "socha>=3.6.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
