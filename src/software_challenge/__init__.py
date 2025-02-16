@@ -87,9 +87,32 @@ class Logic(IClientHandler):
             and self.gameState.board.get_field(self.current_player.position)
             == Field.Salad
         ):
+
             for move in self.possible_moves:
-                if isinstance(move.action, EatSalad):
+                if (
+                    isinstance(move.action, Advance)
+                    and Card.EatSalad in move.action.cards
+                    and self.gameState.board.get_field(
+                        self.current_player.position + move.action.distance
+                    )
+                    != Field.Market
+                    or isinstance(move.action, EatSalad)
+                ):
                     return move
+
+    def buy_salad_card_move(self) -> Move:
+        possible_salad_buy_moves = [
+            move
+            for move in self.possible_moves
+            if isinstance(move.action, Advance) and Card.EatSalad in move.action.cards
+        ]
+
+        if (
+            possible_salad_buy_moves
+            and self.current_player.salads > self.salad_threshold
+            and self.current_player.salads - len(self.current_player.cards) > 0
+        ):
+            return possible_salad_buy_moves[0]
 
     def exchange_carrots_finish_area(self) -> Move:
         distance = self.finish_index - self.current_player.position
@@ -99,7 +122,7 @@ class Logic(IClientHandler):
             self.current_player.position
             in [self.finish_index - 1, self.finish_index - 3]
             and self.current_player.carrots > 10
-            and (
+            or (
                 self.current_player.position != self.finish_index - 3
                 or self.current_player.carrots - carrot_cost <= 4
             )
@@ -236,20 +259,6 @@ class Logic(IClientHandler):
                 f"SELECT ADVANCE MOVE WITH VALUE/CARROT: {max(evaluated_moves, key=lambda item: item[1])[1]:.2f}"
             )
             return best_move
-
-    def buy_salad_card_move(self) -> Move:
-        possible_salad_buy_moves = [
-            move
-            for move in self.possible_moves
-            if isinstance(move.action, Advance) and Card.EatSalad in move.action.cards
-        ]
-
-        if (
-            possible_salad_buy_moves
-            and self.current_player.salads > self.salad_threshold
-            and self.current_player.salads - len(self.current_player.cards) >= 0
-        ):
-            return possible_salad_buy_moves[0]
 
     def calculate_carrot_cost(self, spaces: int) -> int:
         return spaces * (spaces + 1) // 2
