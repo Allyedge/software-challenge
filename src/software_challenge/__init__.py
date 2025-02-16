@@ -117,16 +117,9 @@ class Logic(IClientHandler):
     def exchange_carrots_finish_area(self) -> Move:
         distance = self.finish_index - self.current_player.position
         carrot_cost = self.calculate_carrot_cost(distance)
-
         if (
-            self.current_player.position
-            in [self.finish_index - 1, self.finish_index - 3]
-            and self.current_player.carrots > 10
-            or (
-                self.current_player.position != self.finish_index - 3
-                or self.current_player.carrots - carrot_cost <= 4
-            )
-        ):
+            self.current_player.position == self.finish_index - 1
+        ) and self.current_player.carrots > 10:
             possible_exchange_moves = [
                 move
                 for move in self.possible_moves
@@ -135,6 +128,20 @@ class Logic(IClientHandler):
             ]
             if possible_exchange_moves:
                 return possible_exchange_moves[0]
+
+        if (
+            self.current_player.position == self.finish_index - 3
+            and self.current_player.carrots > 10
+            and self.current_player.carrots - carrot_cost <= 4
+        ):
+            possible_exchange_moves = [
+                move
+                for move in self.possible_moves
+                if isinstance(move.action, ExchangeCarrots)
+                and move.action.amount == -10
+            ]
+            if possible_exchange_moves:
+                return possible_exchange_moves
 
     def fallback(self) -> Move:
         if self.current_player.carrots > self.fallback_carrot_gain_threshold:
