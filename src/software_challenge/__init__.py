@@ -18,6 +18,7 @@ class Logic(IClientHandler):
     gameState: GameState
     possible_moves: list[Move]
     current_player: Hare
+    other_player: Hare
     finish_index = 64
     carrot_threshold_high = 60
     carrot_threshold_low = 20
@@ -73,8 +74,8 @@ class Logic(IClientHandler):
         if can_afford_finish and can_enter_finish and valid_carrots:
             for move in self.possible_moves:
                 if (
-                    isinstance(move.action, Advance)
-                    and move.action.distance == distance
+                        isinstance(move.action, Advance)
+                        and move.action.distance == distance
                 ):
                     return move
             return None
@@ -83,20 +84,20 @@ class Logic(IClientHandler):
 
     def eat_salad(self) -> Move:
         if (
-            self.current_player.salads > self.salad_threshold
-            and self.gameState.board.get_field(self.current_player.position)
-            == Field.Salad
+                self.current_player.salads > self.salad_threshold
+                and self.gameState.board.get_field(self.current_player.position)
+                == Field.Salad
         ):
 
             for move in self.possible_moves:
                 if (
-                    isinstance(move.action, Advance)
-                    and Card.EatSalad in move.action.cards
-                    and self.gameState.board.get_field(
-                        self.current_player.position + move.action.distance
-                    )
-                    != Field.Market
-                    or isinstance(move.action, EatSalad)
+                        isinstance(move.action, Advance)
+                        and Card.EatSalad in move.action.cards
+                        and self.gameState.board.get_field(
+                    self.current_player.position + move.action.distance
+                )
+                        != Field.Market
+                        or isinstance(move.action, EatSalad)
                 ):
                     return move
 
@@ -108,9 +109,9 @@ class Logic(IClientHandler):
         ]
 
         if (
-            possible_salad_buy_moves
-            and self.current_player.salads > self.salad_threshold
-            and self.current_player.salads - len(self.current_player.cards) > 0
+                possible_salad_buy_moves
+                and self.current_player.salads > self.salad_threshold
+                and self.current_player.salads - len(self.current_player.cards) > 0
         ):
             return possible_salad_buy_moves[0]
 
@@ -118,30 +119,42 @@ class Logic(IClientHandler):
         distance = self.finish_index - self.current_player.position
         carrot_cost = self.calculate_carrot_cost(distance)
         if (
-            self.current_player.position == self.finish_index - 1
+                self.current_player.position == self.finish_index - 1
         ) and self.current_player.carrots > 10:
             possible_exchange_moves = [
                 move
                 for move in self.possible_moves
                 if isinstance(move.action, ExchangeCarrots)
-                and move.action.amount == -10
+                   and move.action.amount == -10
             ]
             if possible_exchange_moves:
                 return possible_exchange_moves[0]
 
         if (
-            self.current_player.position == self.finish_index - 3
-            and self.current_player.carrots > 10
-            and self.current_player.carrots - carrot_cost <= 4
-        ):
+                self.current_player.position == self.finish_index - 3
+                and self.current_player.carrots > 10
+                and self.current_player.carrots - carrot_cost <= 4
+        ) or self.other_player.position == self.finish_index - 1:
             possible_exchange_moves = [
                 move
                 for move in self.possible_moves
                 if isinstance(move.action, ExchangeCarrots)
-                and move.action.amount == -10
+                   and move.action.amount == -10
             ]
             if possible_exchange_moves:
-                return possible_exchange_moves
+                return possible_exchange_moves[0]
+
+        # Patch to avoid fallback from 61st field
+        if (
+                self.current_player.carrots - self.calculate_carrot_cost(
+            (self.finish_index - 1) - self.current_player.position) <= 10
+        ):
+            possible_moves = [
+                move for move in self.possible_moves
+                if isinstance(move.action, Advance) and move.action.distance == 2
+            ]
+            if possible_moves:
+                return possible_moves[0]
 
     def fallback(self) -> Move:
         if self.current_player.carrots > self.fallback_carrot_gain_threshold:
@@ -165,24 +178,24 @@ class Logic(IClientHandler):
                 if target_field == Field.Hedgehog:
                     field_value = 3
                 elif target_field == Field.Position1 and self.current_player.is_ahead(
-                    self.gameState
+                        self.gameState
                 ):
                     field_value = 2
 
                     if (
-                        self.current_player.carrots
-                        < self.fallback_carrot_gain_threshold
+                            self.current_player.carrots
+                            < self.fallback_carrot_gain_threshold
                     ):
                         field_value = 5
                 elif (
-                    target_field == Field.Position2
-                    and not self.current_player.is_ahead(self.gameState)
+                        target_field == Field.Position2
+                        and not self.current_player.is_ahead(self.gameState)
                 ):
                     field_value = 2
 
                     if (
-                        self.current_player.carrots
-                        < self.fallback_carrot_gain_threshold
+                            self.current_player.carrots
+                            < self.fallback_carrot_gain_threshold
                     ):
                         field_value = 5
 
@@ -208,8 +221,8 @@ class Logic(IClientHandler):
             for move in possible_advance_moves:
                 target_position = self.current_player.position + move.action.distance
                 if (
-                    target_position < self.finish_index
-                    and self.gameState.board.get_field(target_position) == Field.Salad
+                        target_position < self.finish_index
+                        and self.gameState.board.get_field(target_position) == Field.Salad
                 ):
                     carrot_cost = self.calculate_carrot_cost(move.action.distance)
                     if self.current_player.carrots >= carrot_cost:
@@ -238,13 +251,13 @@ class Logic(IClientHandler):
                         if target_position == self.finish_index - 1:
                             field_value = 15
                     elif (
-                        target_field == Field.Position1
-                        and self.current_player.is_ahead(self.gameState)
+                            target_field == Field.Position1
+                            and self.current_player.is_ahead(self.gameState)
                     ):
                         field_value = 7
                     elif (
-                        target_field == Field.Position2
-                        and not self.current_player.is_ahead(self.gameState)
+                            target_field == Field.Position2
+                            and not self.current_player.is_ahead(self.gameState)
                     ):
                         field_value = 7
                     elif target_field == Field.Hedgehog:
@@ -274,6 +287,7 @@ class Logic(IClientHandler):
         self.gameState = state
         self.possible_moves = state.possible_moves()
         self.current_player = state.clone_current_player()
+        self.other_player = state.clone_other_player()
 
 
 if __name__ == "__main__":
