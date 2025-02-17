@@ -12,3 +12,6 @@ wheels/
 # Software challenge
 log
 replays
+
+# IDE files
+.idea
