@@ -67,11 +67,11 @@ class Logic(IClientHandler):
         distance = self.finish_index - self.current_player.position
         carrot_cost = self.calculate_carrot_cost(distance)
 
-        can_afford_finish = self.current_player.carrots - carrot_cost <= 10
+        can_afford_finish = self.current_player.carrots - carrot_cost <= 10 and self.current_player.carrots - carrot_cost >= 0
         can_enter_finish = self.current_player.can_enter_goal()
         valid_carrots = self.current_player.carrots <= 10
 
-        if can_afford_finish and can_enter_finish and valid_carrots:
+        if can_afford_finish and can_enter_finish and valid_carrots and self.current_player.salads <= self.salad_threshold:
             for move in self.possible_moves:
                 if (
                         isinstance(move.action, Advance)
@@ -131,6 +131,18 @@ class Logic(IClientHandler):
                 return possible_exchange_moves[0]
 
         if (
+                self.current_player.position == self.finish_index - 1
+        ) and self.current_player.carrots == 0:
+            possible_exchange_moves = [
+                move
+                for move in self.possible_moves
+                if isinstance(move.action, ExchangeCarrots)
+                   and move.action.amount == 10
+            ]
+            if possible_exchange_moves:
+                return possible_exchange_moves[0]
+
+        if (
                 self.current_player.position == self.finish_index - 3
                 and self.current_player.carrots > 10
                 and self.current_player.carrots - carrot_cost <= 4
@@ -141,6 +153,23 @@ class Logic(IClientHandler):
                 if isinstance(move.action, ExchangeCarrots)
                    and move.action.amount == -10
             ]
+            if possible_exchange_moves:
+                return possible_exchange_moves[0]
+
+        if (
+                self.current_player.position == self.finish_index - 3
+                and self.current_player.carrots < 10
+                and self.current_player.carrots + 10 <= 20
+        ):
+            if (self.current_player.carrots - self.calculate_carrot_cost(
+                    self.finish_index - 1) - self.current_player.position) >= 0 and not self.current_player.carrots - self.calculate_carrot_cost(
+                (self.finish_index - 1) - self.current_player.position
+            ):
+                possible_exchange_moves = [
+                    move for move in self.possible_moves
+                    if isinstance(move.action, ExchangeCarrots)
+                       and move.action.amount == 10
+                ]
             if possible_exchange_moves:
                 return possible_exchange_moves[0]
 
@@ -267,6 +296,8 @@ class Logic(IClientHandler):
                         field_value = 7
                     elif target_field == Field.Hedgehog:
                         field_value = -3
+                    elif target_field == Field.Market and not EatSalad in move.action.cards:
+                        field_value = -5
 
                     value_per_carrot = (
                         field_value / carrot_cost if carrot_cost > 0 else 0
