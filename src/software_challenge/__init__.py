@@ -241,15 +241,20 @@ class Logic(IClientHandler):
                     target_field = self.gameState.board.get_field(target_position)
                     field_value = 0
                     if target_field == Field.Salad:
-                        field_value = 20
+                        field_value = 30
                     elif target_field == Field.Carrots:
                         field_value = 3
 
-                        if target_position == self.finish_index - 3:
-                            field_value = 7
+                        if target_position == self.finish_index - 3 and self.current_player.salads <= self.salad_threshold:
+                            field_value = 10
+                        elif target_position == self.finish_index - 3 and self.current_player.carrots - carrot_cost <= 20 and self.current_player.salads <= self.salad_threshold:
+                            field_value = 20
 
-                        if target_position == self.finish_index - 1:
-                            field_value = 15
+                        if target_position == self.finish_index - 1 and self.current_player.salads <= self.salad_threshold:
+                            field_value = 10
+                        elif target_position == self.finish_index - 1 and self.current_player.carrots - carrot_cost <= 20 and self.current_player.carrots - carrot_cost >= 6 and self.current_player.salads <= self.salad_threshold:
+                            field_value = 20
+
                     elif (
                             target_field == Field.Position1
                             and self.current_player.is_ahead(self.gameState)
