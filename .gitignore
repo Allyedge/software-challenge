@@ -12,6 +12,10 @@ wheels/
 # Software challenge
 log
 replays
+socha_builds
+*.jar
 
 # IDE files
 .idea
+.lsp
+.clj-kondo
